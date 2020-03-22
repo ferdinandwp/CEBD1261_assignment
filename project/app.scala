@@ -12,21 +12,12 @@ import scala.math.max
 def parseLine(line: String) = {
     val fields = line.split(",")
     val hotel = fields(0)
-    val isCancelled = fields(1).toInt
-    val leadTime = fields(2).toInt
+    val isCancelled = fields(1)
+    val leadTime = fields(2)
     (hotel, isCancelled, leadTime)
 }
-
-// setup logger
 Logger.getLogger("org").setLevel(Level.ERROR)
-val conf = new  SparkConf().setMaster("local[*]").setAppName("MinTemperatures").set("spark.driver.host", "localhost");
+val conf = new  SparkConf().setMaster("local[*]").setAppName("Hotel_Booking").set("spark.driver.host", "localhost");
 val sc = new SparkContext(conf)
-
-// read csv files
 val lines = sc.textFile("/Users/ferdinand/Desktop/CEBD1261_assignment/project/hotel_bookings.csv")
-
 val rdd = lines.map(parseLine)
-
-
-
-
